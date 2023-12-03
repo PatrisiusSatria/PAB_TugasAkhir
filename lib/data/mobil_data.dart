@@ -2,9 +2,10 @@ import 'package:sewa_kendaraan/models/mobil.dart';
 
 var mobilList = [
   Mobil(
-    name: 'Avanza',
-    description:
-        '',
+    id : 1,
+    name: 'Toyota Avanza',
+    description:'Toyota Avanza adalah Kendaraan jenis mpv,Cocok digunakan untuk dibawa ke medan manapun dan muat untuk satu keluarga besar',
+    harga: 400000,
     rating: 5,
     type: 'Candi Buddha',
     imageAsset: 'images/borobudur.jpeg',
@@ -16,10 +17,11 @@ var mobilList = [
     ],
     isFavorite: false,
   ),
-  Mobil(
-    name: 'Avanza',
-    description:
-        '',
+   Mobil(
+    id : 2,
+    name: 'Toyota Avanza',
+    description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+    harga: 400000,
     rating: 5,
     type: 'Candi Buddha',
     imageAsset: 'images/borobudur.jpeg',
@@ -31,11 +33,12 @@ var mobilList = [
     ],
     isFavorite: false,
   ),
-  Mobil(
-    name: 'Avanza',
-    description:
-        '',
-    rating: 2,
+    Mobil(
+    id : 3,
+    name: 'Toyota Avanza',
+    description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+    harga: 400000,
+    rating: 5,
     type: 'Candi Buddha',
     imageAsset: 'images/borobudur.jpeg',
     imageUrls: [
@@ -46,11 +49,28 @@ var mobilList = [
     ],
     isFavorite: false,
   ),
-  Mobil(
-    name: 'Avanza',
-    description:
-        '',
-    rating: 3,
+    Mobil(
+    id : 4,
+    name: 'Toyota Avanza',
+    description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+    harga: 400000,
+    rating: 5,
+    type: 'Candi Buddha',
+    imageAsset: 'images/borobudur.jpeg',
+    imageUrls: [
+      'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4f/71/borobudur-and-the-sky.jpg',
+      'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/5d/36/borobudur-airial-view.jpg',
+      'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4d/c7/borobudur-and-the-sky.jpg',
+      'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/47/0e/borobudur-sunset-moment.jpg',
+    ],
+    isFavorite: false,
+  ),
+    Mobil(
+    id : 5,
+    name: 'Toyota Avanza',
+    description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+    harga: 400000,
+    rating: 5,
     type: 'Candi Buddha',
     imageAsset: 'images/borobudur.jpeg',
     imageUrls: [

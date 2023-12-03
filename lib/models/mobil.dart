@@ -1,6 +1,8 @@
 class Mobil {
+  final int id;
   final String name;
   final String description;
+  final int harga;
   final int rating;
   final String type;
   final String imageAsset;
@@ -8,8 +10,10 @@ class Mobil {
   bool isFavorite;
 
   Mobil({
+    required this.id,
     required this.name,
     required this.description,
+    required this.harga,
     required this.rating,
     required this.type,
     required this.imageAsset,

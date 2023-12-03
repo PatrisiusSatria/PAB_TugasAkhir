@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sewa_kendaraan/screens/home.dart';
-import 'package:sewa_kendaraan/screens/order.dart';
+import 'package:sewa_kendaraan/screens/orderList.dart';
 import 'package:sewa_kendaraan/screens/profile.dart';
 
 class MyApp extends StatefulWidget {
@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final Tabs = [Home(), Order(), Profile()];
+  final Tabs = [Home(), OrderList(), Profile()];
   int currentTabIndex = 0;
   @override
   Widget build(BuildContext context) {
