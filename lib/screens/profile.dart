@@ -46,15 +46,13 @@ class _ProfileState extends State<Profile> {
       prefs.setBool('login', false);
       isLogin = prefs.getBool('login') ?? false;
     });
-    print("logout");
-    print(isLogin);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: !isLogin
-          ? SignInScreen()
+          ? const SignInScreen()
           : Center(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -72,7 +70,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     Text(
                       'Nama Pengguna: ${akun.name}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
                         fontFamily: 'Kameron',
@@ -82,7 +80,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 10),
                     Text(
                       'Email: ${akun.email}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                       ),
@@ -93,8 +91,8 @@ class _ProfileState extends State<Profile> {
                         logout();
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFC70039),
-                        fixedSize: Size(200, 50),
+                        backgroundColor: const Color(0xFFC70039),
+                        fixedSize: const Size(200, 50),
                       ),
                       child: const Text('Logout'),
                     ),

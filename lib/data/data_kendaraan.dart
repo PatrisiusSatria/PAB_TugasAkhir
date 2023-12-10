@@ -1,9 +1,10 @@
-import 'package:sewa_kendaraan/models/mobil.dart';
+import 'package:sewa_kendaraan/models/kendaraan.dart';
 
-var mobilList = [
-  Mobil(
+var kendaraanList = [
+  Kendaraan(
     id : 1,
-    name: 'Toyota Avanza',
+    kendaraan: "Mobil",
+    name: 'Toyota Avan',
     description:'Toyota Avanza adalah Kendaraan jenis mpv,Cocok digunakan untuk dibawa ke medan manapun dan muat untuk satu keluarga besar',
     harga: 400000,
     rating: 5,
@@ -14,12 +15,12 @@ var mobilList = [
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/5d/36/borobudur-airial-view.jpg',
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4d/c7/borobudur-and-the-sky.jpg',
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/47/0e/borobudur-sunset-moment.jpg',
-    ],
-    isFavorite: false,
+    ],    
   ),
-   Mobil(
+   Kendaraan(
     id : 2,
-    name: 'Toyota Avanza',
+    kendaraan: "Mobil",
+    name: 'Toyota ',
     description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
     harga: 400000,
     rating: 5,
@@ -31,11 +32,11 @@ var mobilList = [
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4d/c7/borobudur-and-the-sky.jpg',
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/47/0e/borobudur-sunset-moment.jpg',
     ],
-    isFavorite: false,
   ),
-    Mobil(
+    Kendaraan(
     id : 3,
-    name: 'Toyota Avanza',
+    kendaraan: "Mobil",
+    name: 'Senia',
     description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
     harga: 400000,
     rating: 5,
@@ -47,10 +48,10 @@ var mobilList = [
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4d/c7/borobudur-and-the-sky.jpg',
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/47/0e/borobudur-sunset-moment.jpg',
     ],
-    isFavorite: false,
   ),
-    Mobil(
+    Kendaraan(
     id : 4,
+    kendaraan: "Mobil",
     name: 'Toyota Avanza',
     description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
     harga: 400000,
@@ -63,10 +64,10 @@ var mobilList = [
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4d/c7/borobudur-and-the-sky.jpg',
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/47/0e/borobudur-sunset-moment.jpg',
     ],
-    isFavorite: false,
   ),
-    Mobil(
+    Kendaraan(
     id : 5,
+    kendaraan: "Mobil",
     name: 'Toyota Avanza',
     description:'awdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
     harga: 400000,
@@ -79,6 +80,5 @@ var mobilList = [
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/4d/c7/borobudur-and-the-sky.jpg',
       'https://media-cdn.tripadvisor.com/media/photo-o/11/cd/47/0e/borobudur-sunset-moment.jpg',
     ],
-    isFavorite: false,
   ),
 ];

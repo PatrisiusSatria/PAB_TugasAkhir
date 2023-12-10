@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sewa_kendaraan/screens/profile.dart';
+import 'package:sewa_kendaraan/screens/app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'sign_up.dart'; // Import halaman sign-up jika belum diimpor
+import 'sign_up.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -39,17 +39,17 @@ class _SignInScreenState extends State<SignInScreen> {
     String storedEmail = prefs.getString('email') ?? '';
     String storedPassword = prefs.getString('password') ?? '';
 
+    // ignore: prefer_is_not_empty
     if (!(email.isEmpty) && !(password.isEmpty)) {
       if (email == storedEmail && password == storedPassword) {
         // Login berhasil
         prefs.setBool('login', true);
-        print('*** Sign in berhasil!');
-        print('Email: $email');
-        print('Password: $password');
+       
+        // ignore: use_build_context_synchronously
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => Profile(),
+            builder: (context) => const MyApp(),
           ),
           (route) => false,
         );
@@ -77,12 +77,12 @@ class _SignInScreenState extends State<SignInScreen> {
                   width: 150,
                   alignment: Alignment.center,
                   margin: const EdgeInsets.only(bottom: 100, top: 20),
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     radius: 60,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 8),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 8),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -106,8 +106,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 8),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 8),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -154,7 +154,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignUpScreen()),
+                              builder: (context) => const SignUpScreen()),
                         );
                       },
                       child: const Text('Buat Akun ?'),
@@ -167,8 +167,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: ElevatedButton(
                     onPressed: _signIn,
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFC70039),
-                      fixedSize: Size(200, 50),
+                      backgroundColor: const Color(0xFFC70039),
+                      fixedSize: const Size(200, 50),
                     ),
                     child: const Text('Sign In'),
                   ),

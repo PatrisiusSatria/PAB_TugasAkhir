@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sewa_kendaraan/data/data_kendaraan.dart';
+import 'package:sewa_kendaraan/models/kendaraan.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Order extends StatefulWidget {
-  const Order({Key? key}) : super(key: key);
+  final int id;
+
+  const Order({Key? key, required this.id}) : super(key: key);
 
   @override
   State<Order> createState() => _OrderState();
@@ -49,13 +54,10 @@ class _OrderState extends State<Order> {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.popUntil(
-                          context,
-                          ModalRoute.withName(
-                              '/')); 
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:const Color(0xFFC70039),
+                      backgroundColor: const Color(0xFFC70039),
                       fixedSize: const Size(150, 40),
                     ),
                     child: const Text(
@@ -127,6 +129,9 @@ class _OrderState extends State<Order> {
   }
 
   Future<void> _showConfirmationModal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // ignore: use_build_context_synchronously
     await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -143,18 +148,30 @@ class _OrderState extends State<Order> {
           ),
           actions: [
             TextButton(
-              onPressed: () {
-                // Handle jika tombol "Yakin" ditekan
+              onPressed: () async {
+                await prefs.setString('namaOrder_${widget.id}', nameController.text);
+                await prefs.setString('nohpOrder_${widget.id}', phoneController.text);
+                await prefs.setInt('durationOrder_${widget.id}',
+                    int.tryParse(durationController.text) ?? 0);
+                await prefs.setString('startDateOrder_${widget.id}',
+                    selectedStartDate?.toLocal().toString() ?? '');
+                await prefs.setString('endDateOrder_${widget.id}',
+                    selectedEndDate?.toLocal().toString() ?? '');
+
+                Kendaraan selected =
+                    kendaraanList.firstWhere((kendaraan) => kendaraan.id == widget.id);
+                selected.onRent = true;
+                
                 Navigator.of(context).pop();
-                _showSuccessOrder(); // Ganti dengan fungsi yang sesuai untuk menyimpan data
+
+                _showSuccessOrder();
               },
               child: const Text('Yakin'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                _showCancellationOrder(); // Ganti dengan fungsi yang sesuai untuk menyimpan data
-                // Tutup modal
+                _showCancellationOrder();
               },
               child: const Text('Batal'),
             ),

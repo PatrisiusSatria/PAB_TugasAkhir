@@ -17,6 +17,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _errorTextPass = '';
   String _errorTextKonfirm = '';
   bool _obscurePassword = true;
+  bool _obscurePasswordKonf = true;
 
  void _signUp() async{
   final String name = _nameController.text.trim();
@@ -48,6 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   prefs.setString('name', name);
   prefs.setString('email', email);
   prefs.setString('password', password);
+  
 
   // ignore: use_build_context_synchronously
   Navigator.pushAndRemoveUntil(
@@ -97,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Email',
+                      'Nama',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -138,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Email',
+                      'Password',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -171,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Email',
+                      'Konfirmasi',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -188,15 +190,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          _obscurePassword = !_obscurePassword;
+                          _obscurePasswordKonf = !_obscurePasswordKonf;
                         });
                       },
-                      icon: Icon(_obscurePassword
+                      icon: Icon(_obscurePasswordKonf
                           ? Icons.visibility_off
                           : Icons.visibility),
                     ),
                   ),
-                  obscureText: _obscurePassword,
+                  obscureText: _obscurePasswordKonf,
                 ),
                 const SizedBox(height: 40),
                 ElevatedButton(

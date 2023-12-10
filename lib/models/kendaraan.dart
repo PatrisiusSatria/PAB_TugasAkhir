@@ -1,5 +1,6 @@
-class Mobil {
+class Kendaraan {
   final int id;
+  final String kendaraan;
   final String name;
   final String description;
   final int harga;
@@ -7,10 +8,13 @@ class Mobil {
   final String type;
   final String imageAsset;
   final List<String> imageUrls;
-  bool isFavorite;
+  bool onRent;
+  bool Rate;
+  bool Rating;
 
-  Mobil({
+  Kendaraan({
     required this.id,
+    required this.kendaraan,
     required this.name,
     required this.description,
     required this.harga,
@@ -18,8 +22,8 @@ class Mobil {
     required this.type,
     required this.imageAsset,
     required this.imageUrls,
-    this.isFavorite = false,
+    this.Rate = false,
+    this.Rating = false,
+    this.onRent = true,
   });
-
 }
-

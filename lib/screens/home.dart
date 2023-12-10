@@ -2,32 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:sewa_kendaraan/screens/itemCard.dart';
 import 'package:sewa_kendaraan/screens/order.dart';
 import 'package:sewa_kendaraan/screens/search.dart';
-import 'package:sewa_kendaraan/data/mobil_data.dart';
+import 'package:sewa_kendaraan/data/data_kendaraan.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'sign_in.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RedWine Rent',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
 
 _showDetailsOverlay(BuildContext context, int id, String title,
-    String description, int harga, String imageUrl) {
+    String description, int harga, String imageUrl) async {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(16.0),
         ),
         child: FractionallySizedBox(
           heightFactor: 0.7,
@@ -75,11 +62,8 @@ _showDetailsOverlay(BuildContext context, int id, String title,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Order()),
-                  );
+                onPressed: () async {
+                  await signInCheck(context, id);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFC70039),
@@ -98,8 +82,76 @@ _showDetailsOverlay(BuildContext context, int id, String title,
   );
 }
 
-class HomePage extends StatelessWidget {
+signInCheck(BuildContext context, int id) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool isLoggedIn = prefs.getBool('login') ?? false;
+
+  if (isLoggedIn) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Order(id: id),
+      ),
+    );
+  } else {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: FractionallySizedBox(
+            heightFactor: 0.2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(height: 16),
+                Text(
+                  "Silahkan login terlebih dahulu.",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Tutup dialog
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignInScreen()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFC70039),
+                    fixedSize: const Size(200, 15),
+                  ),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +164,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor:const Color(0xFFC70039),
+        backgroundColor: const Color(0xFFC70039),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -135,7 +187,7 @@ class HomePage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Search()));
+                            builder: (context) => const SearchScreen()));
                   },
                   style: ButtonStyle(
                     backgroundColor:
@@ -167,7 +219,7 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Container(
-                width: MediaQuery.of(context).size.width - 20,
+                width: double.infinity,
                 padding: const EdgeInsets.only(left: 15, right: 15),
                 decoration: BoxDecoration(
                   color: const Color(0xFFC70039),
@@ -201,10 +253,9 @@ class HomePage extends StatelessWidget {
                       SizedBox(
                           width: 170,
                           child: ElevatedButton(
-                            onPressed: () {
-                            },
+                            onPressed: () {},
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:const Color(0xFFD9D9D9),
+                              backgroundColor: const Color(0xFFD9D9D9),
                             ),
                             child: const Text(
                               'Mobil',
@@ -227,30 +278,15 @@ class HomePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: 170,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:const Color(0xFFC70039),
-                          ),
-                          child:const Text('Button 1'),
-                        ),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFC70039),
                       ),
-                      SizedBox(
-                        width: 170,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFC70039),
-                          ),
-                          onPressed: () {},
-                          child:const Text('Button 2'),
-                        ),
-                      ),
-                    ],
+                      child: const Text('Button 1'),
+                    ),
                   ),
                 ),
               ),
@@ -264,20 +300,20 @@ class HomePage extends StatelessWidget {
                     mainAxisSpacing: 8.0,
                   ),
                   padding: const EdgeInsets.all(8),
-                  itemCount: mobilList.length,
+                  itemCount: kendaraanList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
                         _showDetailsOverlay(
                           context,
-                          mobilList[index].id,
-                          mobilList[index].name,
-                          mobilList[index].description,
-                          mobilList[index].harga,
-                          mobilList[index].imageUrls[0],
+                          kendaraanList[index].id,
+                          kendaraanList[index].name,
+                          kendaraanList[index].description,
+                          kendaraanList[index].harga,
+                          kendaraanList[index].imageUrls[0],
                         );
                       },
-                      child: ItemCard(mobil: mobilList[index]),
+                      child: ItemCard(kendaraan: kendaraanList[index]),
                     );
                   },
                 ),
