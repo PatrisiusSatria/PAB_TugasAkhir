@@ -24,6 +24,6 @@ class Kendaraan {
     required this.imageUrls,
     this.Rate = false,
     this.Rating = false,
-    this.onRent = true,
+    this.onRent = false,
   });
 }

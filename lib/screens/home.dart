@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sewa_kendaraan/models/kendaraan.dart';
 import 'package:sewa_kendaraan/screens/itemCard.dart';
 import 'package:sewa_kendaraan/screens/order.dart';
 import 'package:sewa_kendaraan/screens/search.dart';
 import 'package:sewa_kendaraan/data/data_kendaraan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'sign_in.dart';
-
 
 _showDetailsOverlay(BuildContext context, int id, String title,
     String description, int harga, String imageUrl) async {
@@ -87,6 +87,7 @@ signInCheck(BuildContext context, int id) async {
   bool isLoggedIn = prefs.getBool('login') ?? false;
 
   if (isLoggedIn) {
+    // ignore: use_build_context_synchronously
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -94,6 +95,7 @@ signInCheck(BuildContext context, int id) async {
       ),
     );
   } else {
+    // ignore: use_build_context_synchronously
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -108,9 +110,9 @@ signInCheck(BuildContext context, int id) async {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const SizedBox(height: 16),
-                Text(
+                const Text(
                   "Silahkan login terlebih dahulu.",
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -122,7 +124,8 @@ signInCheck(BuildContext context, int id) async {
                     Navigator.pop(context); // Tutup dialog
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignInScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => const SignInScreen()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -152,6 +155,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Kendaraan> selectedList = kendaraanList;
+  String dropdownValue = 'Rating';
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +239,11 @@ class _HomePageState extends State<HomePage> {
                           width: 170,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Aksi ketika tombol ditekan
+                              setState(() {
+                                selectedList = kendaraanList
+                                    .where((a) => a.kendaraan == "Motor")
+                                    .toList();
+                              });
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFFD9D9D9),
@@ -253,7 +262,13 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                           width: 170,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() {
+                                selectedList = kendaraanList
+                                    .where((a) => a.kendaraan == "Mobil")
+                                    .toList();
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFFD9D9D9),
                             ),
@@ -274,20 +289,53 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 10),
               Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                width: MediaQuery.of(context).size.width,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
+                margin: const EdgeInsets.only(left: 15, right: 15),
+                width: double.infinity,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color(0xFFC70039),
+                ),
+                child: ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
                       onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFC70039),
+                      style: TextButton.styleFrom(
+                        foregroundColor:
+                            Colors.white, 
                       ),
-                      child: const Text('Button 1'),
+                      child: Text(
+                        dropdownValue,
+                        style: const TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                     ),
-                  ),
+                    PopupMenuButton<String>(
+                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      onSelected: (String value) {
+                        setState(() {
+                          dropdownValue = value;
+                          if (dropdownValue == 'Rating') {
+                            selectedList
+                                .sort((a, b) => b.rating.compareTo(a.rating));
+                          } else if (dropdownValue == 'Harga') {
+                            selectedList
+                                .sort((a, b) => a.harga.compareTo(b.harga));
+                          }
+                        });
+                      },
+                      itemBuilder: (BuildContext context) => [
+                        const PopupMenuItem<String>(
+                          value: 'Rating',
+                          child: Text('Rating'),
+                        ),
+                        const PopupMenuItem<String>(
+                          value: 'Harga',
+                          child: Text('Harga'),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 10),
@@ -300,20 +348,20 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSpacing: 8.0,
                   ),
                   padding: const EdgeInsets.all(8),
-                  itemCount: kendaraanList.length,
+                  itemCount: selectedList.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
                         _showDetailsOverlay(
                           context,
-                          kendaraanList[index].id,
-                          kendaraanList[index].name,
-                          kendaraanList[index].description,
-                          kendaraanList[index].harga,
-                          kendaraanList[index].imageUrls[0],
+                          selectedList[index].id,
+                          selectedList[index].name,
+                          selectedList[index].description,
+                          selectedList[index].harga,
+                          selectedList[index].imageUrls[0],
                         );
                       },
-                      child: ItemCard(kendaraan: kendaraanList[index]),
+                      child: ItemCard(kendaraan: selectedList[index]),
                     );
                   },
                 ),

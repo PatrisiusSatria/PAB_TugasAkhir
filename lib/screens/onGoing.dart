@@ -33,14 +33,14 @@ class _OnGoingState extends State<OnGoing> {
   @override
   Widget build(BuildContext context) {
     List<Kendaraan> rented = kendaraanList
-        .where((kendaraan) => kendaraan.onRent && !kendaraan.Rate && !kendaraan.Rating)
+        .where((kendaraan) =>
+            kendaraan.onRent && !kendaraan.Rate && !kendaraan.Rating)
         .toList();
 
     return Expanded(
       child: ListView.builder(
         itemCount: rented.length,
         itemBuilder: (context, index) {
-          // Hitung total harga
           totalHarga = lamaPemakaian * rented[index].harga;
 
           return Card(
@@ -48,8 +48,7 @@ class _OnGoingState extends State<OnGoing> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: ListTile(
-              tileColor:
-                  Colors.grey[300], 
+              tileColor: Colors.grey[300],
               contentPadding: EdgeInsets.all(8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

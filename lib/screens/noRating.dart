@@ -33,7 +33,7 @@ class _NoRatingState extends State<NoRating> {
   @override
   Widget build(BuildContext context) {
     List<Kendaraan> rented = kendaraanList
-        .where((kendaraan) => kendaraan.onRent && !kendaraan.Rate && !kendaraan.Rating)
+        .where((kendaraan) => !kendaraan.onRent && kendaraan.Rate && !kendaraan.Rating)
         .toList();
 
     return Expanded(
