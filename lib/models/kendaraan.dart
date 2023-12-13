@@ -22,7 +22,7 @@ class Kendaraan {
     required this.type,
     required this.imageAsset,
     required this.imageUrls,
-    this.Rate = false,
+    this.Rate = true,
     this.Rating = false,
     this.onRent = false,
   });

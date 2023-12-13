@@ -35,10 +35,10 @@ class _MyAppState extends State<MyApp> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home, color: Colors.black), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search, color: Colors.black), label: 'search'),
+              icon: Icon(Icons.library_books, color: Colors.black), label: 'Order'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.library_books, color: Colors.black),
-              label: 'library')
+              icon: Icon(Icons.account_box, color: Colors.black),
+              label: 'Profile')
         ],
       ),
     );

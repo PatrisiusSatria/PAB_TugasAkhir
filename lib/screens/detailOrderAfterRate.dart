@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:sewa_kendaraan/data/data_kendaraan.dart';
 import 'package:sewa_kendaraan/models/kendaraan.dart';
@@ -10,6 +11,7 @@ class DetailOrderAfterRate extends StatefulWidget {
   const DetailOrderAfterRate({Key? key, required this.id}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _DetailOrderState createState() => _DetailOrderState();
 }
 
@@ -159,7 +161,7 @@ class _DetailOrderState extends State<DetailOrderAfterRate> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MyApp()), // Ganti HomeScreen() dengan halaman utama Anda
+                                            const MyApp()), // Ganti HomeScreen() dengan halaman utama Anda
                                     (route) =>
                                         false, // Menghapus semua rute di atas home
                                   );

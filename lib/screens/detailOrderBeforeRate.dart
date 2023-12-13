@@ -10,15 +10,20 @@ class DetailOrderBeforeRate extends StatefulWidget {
   const DetailOrderBeforeRate({Key? key, required this.id}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _DetailOrderBeforeRateState createState() => _DetailOrderBeforeRateState();
 }
 
 class _DetailOrderBeforeRateState extends State<DetailOrderBeforeRate> {
   late String _namaOrder = '';
   late String _nohpOrder = '';
+  late String _namaKendaraan = '';
+  late String _jenisKendaraan = '';
   late int _durationOrder = 0;
+  late int _harga = 0;
   late String _startDateOrder = '';
   late String _endDateOrder = '';
+  late double _subTotal = 0;
   late int _rating = 0;
 
   @override
@@ -33,9 +38,13 @@ class _DetailOrderBeforeRateState extends State<DetailOrderBeforeRate> {
     setState(() {
       _namaOrder = prefs.getString('namaOrder') ?? '';
       _nohpOrder = prefs.getString('nohpOrder') ?? '';
+      _namaKendaraan = prefs.getString('namaKendaraanOrder') ?? '';
+      _jenisKendaraan = prefs.getString('jenisKendaraanOrder') ?? '';
       _durationOrder = prefs.getInt('durationOrder') ?? 0;
       _startDateOrder = prefs.getString('startDateOrder') ?? '';
       _endDateOrder = prefs.getString('endDateOrder') ?? '';
+      _subTotal = (prefs.getInt('subTotalOrder') ?? 0) * 95 / 100;
+      _harga = prefs.getInt('hargaOrder') ?? 0;
     });
   }
 
@@ -60,13 +69,15 @@ class _DetailOrderBeforeRateState extends State<DetailOrderBeforeRate> {
         title: const Text('Detail Order'),
         backgroundColor: const Color(0xFFC70039),
       ),
-      body: Padding(
+      body: Container(
         padding: const EdgeInsets.all(16),
+        margin: const EdgeInsets.only(left: 40, right: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            _buildRatingSection(),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -92,6 +103,21 @@ class _DetailOrderBeforeRateState extends State<DetailOrderBeforeRate> {
                     ),
                   ),
                   Text(_nohpOrder),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    _jenisKendaraan,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(_namaKendaraan),
                 ],
               ),
             ),
@@ -140,44 +166,90 @@ class _DetailOrderBeforeRateState extends State<DetailOrderBeforeRate> {
                 ],
               ),
             ),
-            _buildRatingSection(), // Panggil fungsi untuk menampilkan bagian rating
-            ElevatedButton(
-              onPressed: () async {
-                await _saveRating();
-                Kendaraan selected =
-                    kendaraanList.firstWhere((kendaraan) => kendaraan.id == widget.id);
-                selected.Rate = false;
-                selected.Rating = true;
-
-                Navigator.pop(context);
-                // ignore: use_build_context_synchronously
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Pesanan Selesai'),
-                      content: const Text(
-                          'Terima kasih! Pesanan Anda telah selesai.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MyApp()), // Ganti HomeScreen() dengan halaman utama Anda
-                              (route) =>
-                                  false, // Menghapus semua rute di atas home
-                            );
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                ); // Kembali ke layar sebelumnya
-              },
-              child: const Text('Submit Rating'),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Harga',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text('$_harga'),
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'diskon',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text('5%'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'subtotal',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text('$_subTotal'),
+                ],
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+  
+                onPressed: () async {
+                  await _saveRating();
+                  Kendaraan selected = kendaraanList
+                      .firstWhere((kendaraan) => kendaraan.id == widget.id);
+                  selected.Rate = false;
+                  selected.Rating = true;
+            
+                  // ignore: use_build_context_synchronously
+                  Navigator.pop(context);
+                  // ignore: use_build_context_synchronously
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Pesanan Selesai'),
+                        content: const Text(
+                            'Terima kasih! Pesanan Anda telah selesai.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const MyApp()),
+                                (route) => false,
+                              );
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                child: const Text('Submit Rating'),
+              ),
             ),
           ],
         ),
@@ -186,33 +258,25 @@ class _DetailOrderBeforeRateState extends State<DetailOrderBeforeRate> {
   }
 
   Widget _buildRatingSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+    return Container(
+      margin: EdgeInsets.all(30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            'Rating',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+        children: List.generate(5, (index) {
+          return IconButton(
+            onPressed: () {
+              setState(() {
+                _rating = index + 1;
+              });
+            },
+            icon: Icon(
+              Icons.star,
+              size: 50,
+              opticalSize: 50,
+              color: _rating > index ? const Color(0xFFC70039) : Colors.grey,
             ),
-          ),
-          Row(
-            children: List.generate(5, (index) {
-              return IconButton(
-                onPressed: () {
-                  setState(() {
-                    _rating = index + 1;
-                  });
-                },
-                icon: Icon(
-                  Icons.star,
-                  color: _rating > index ? Colors.yellow : Colors.grey,
-                ),
-              );
-            }),
-          ),
-        ],
+          );
+        }),
       ),
     );
   }

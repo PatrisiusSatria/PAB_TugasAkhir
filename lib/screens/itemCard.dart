@@ -38,13 +38,33 @@ class ItemCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, top: 8),
+            padding: const EdgeInsets.only(left: 17, top: 2),
             child: Text(
-              kendaraan.type,
+              ("Rp.${kendaraan.harga}"),
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, top: 8),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                  size: 16,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  "${kendaraan.rating}",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -50,47 +50,45 @@ class _NoRatingState extends State<NoRating> {
             child: ListTile(
               tileColor:
                   Colors.grey[300], // Ganti warna background sesuai keinginan
-              contentPadding: EdgeInsets.all(8),
+              contentPadding: const EdgeInsets.all(8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              title: Container(
-                child: Row(
-                  children: [
-                    Container(
-                      height: 120,
-                      width: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          rented[index].imageUrls[0],
-                          fit: BoxFit.cover,
-                        ),
+              title: Row(
+                children: [
+                  Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.network(
+                        rented[index].imageUrls[0],
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            rented[index].name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          rented[index].name,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
-                          Text('Lama Pemakaian: $lamaPemakaian hari'),
-                          Text('Tanggal Pemakaian: $tanggalPemakian'),
-                          Text('Total Harga: $totalHarga'),
-                        ],
-                      ),
+                        ),
+                        Text('Lama Pemakaian: $lamaPemakaian hari'),
+                        Text('Tanggal Pemakaian: $tanggalPemakian'),
+                        Text('Total Harga: $totalHarga'),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               onTap: () {
                 Navigator.push(

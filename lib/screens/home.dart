@@ -236,53 +236,77 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                          width: 170,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedList = kendaraanList
-                                    .where((a) => a.kendaraan == "Motor")
-                                    .toList();
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD9D9D9),
-                            ),
-                            child: const Text(
-                              'Motor',
-                              style: TextStyle(
+                        width: 170,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedList = kendaraanList
+                                  .where((a) => a.kendaraan == "Motor")
+                                  .toList();
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFD9D9D9),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons
+                                    .motorcycle, // Ganti dengan ikon motor yang diinginkan
                                 color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Kameron',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
                               ),
-                            ),
-                          )),
+                              SizedBox(width: 8), // Jarak antara ikon dan teks
+                              Text(
+                                'Motor',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Kameron',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       SizedBox(
-                          width: 170,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedList = kendaraanList
-                                    .where((a) => a.kendaraan == "Mobil")
-                                    .toList();
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFD9D9D9),
-                            ),
-                            child: const Text(
-                              'Mobil',
-                              style: TextStyle(
+                        width: 170,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              selectedList = kendaraanList
+                                  .where((a) => a.kendaraan == "Mobil")
+                                  .toList();
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFD9D9D9),
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons
+                                    .directions_car, // Ganti dengan ikon mobil yang diinginkan
                                 color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Kameron',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
                               ),
-                            ),
-                          )),
+                              SizedBox(width: 8), // Jarak antara ikon dan teks
+                              Text(
+                                'Mobil',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Kameron',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -302,16 +326,17 @@ class _HomePageState extends State<HomePage> {
                     TextButton(
                       onPressed: () {},
                       style: TextButton.styleFrom(
-                        foregroundColor:
-                            Colors.white, 
+                        foregroundColor: Colors.white,
                       ),
                       child: Text(
                         dropdownValue,
-                        style: const TextStyle(fontSize: 16, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                     PopupMenuButton<String>(
-                      icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                      icon: const Icon(Icons.arrow_drop_down,
+                          color: Colors.white),
                       onSelected: (String value) {
                         setState(() {
                           dropdownValue = value;
